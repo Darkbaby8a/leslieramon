@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boda Ramón & Leslie</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navyDark: '#0B192C',
+                        midnightBlue: '#1E3E62',
+                        sapphire: '#1F51FF',
+                        iceBlue: '#E2F1FF',
+                        silverCold: '#E5E7EB',
+                        silverAccent: '#9CA3AF',
+                        skySoft: '#B9E0FF'
+                    },
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Cinzel"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Desplazamiento Suave y Snap Scroll */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0B192C;
+        }
+
+        .scroll-container {
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .section-page {
+            height: 100vh;
+            height: 100dvh;
+            /* Soporte exacto para viewport móvil */
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Canvas de Hojas Cayendo */
+        #leaves-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Degradados y Sombras Personalizadas en Tonos Azules */
+        .overlay-gradient {
+            background: linear-gradient(180deg, rgba(11, 25, 44, 0.45) 0%, rgba(30, 62, 98, 0.8) 60%, rgba(11, 25, 44, 0.95) 100%);
+        }
+
+        .silver-border {
+            border: 1px solid rgba(229, 231, 235, 0.4);
+        }
+
+        .silver-glow {
+            box-shadow: 0 0 15px rgba(226, 241, 255, 0.3);
+        }
+
+        /* Estilo Botón Pulsante */
+        .pulse-silver {
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                box-shadow: 0 0 0 0 rgba(226, 241, 255, 0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 12px rgba(226, 241, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(226, 241, 255, 0);
+            }
+        }
+
+        /* Scrollbar Oculto */
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="text-iceBlue select-none">
+
+    <!-- Canvas para animación interactiva de hojas en tonos azules -->
+    <canvas id="leaves-canvas"></canvas>
+
+    <!-- Contenedor Principal de 2 Páginas -->
+    <div class="scroll-container" id="main-container">
+
+        <!-- ==================== PÁGINA 1: PORTADA ==================== -->
+        <section class="section-page flex flex-col justify-between items-center text-center p-6 relative">
+            <!-- Imagen de Fondo con overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80"
+                    alt="Ramón y Leslie"
+                    class="w-full h-full object-cover object-center scale-105 transform duration-1000 transition-transform"
+                    onerror="this.src='https://placehold.co/800x1200/0B192C/E2F1FF?text=Ram%C3%B3n+%26+Leslie'">
+                <div class="absolute inset-0 overlay-gradient"></div>
+            </div>
+
+            <!-- Encabezado Superior -->
+            <div class="relative z-10 pt-8 w-full animate-fade-in">
+                <p class="font-serif tracking-[0.3em] text-xs uppercase text-skySoft opacity-90 mb-1">Nuestra Boda</p>
+                <div class="w-16 h-[1px] bg-skySoft opacity-60 mx-auto"></div>
+            </div>
+
+            <!-- Nombres Principales & Fecha -->
+            <div class="relative z-10 my-auto w-full px-2">
+                <h2 class="font-serif text-sm tracking-widest uppercase text-silverCold opacity-90 mb-2">¡Nos Casamos!
+                </h2>
+
+                <h1 class="font-script text-6xl sm:text-7xl text-iceBlue drop-shadow-md leading-tight my-1">
+                    Ramón <br>
+                    <span class="text-3xl text-skySoft font-serif italic font-light">&</span> <br>
+                    Leslie
+                </h1>
+
+                <p class="font-serif tracking-widest text-lg text-silverCold mt-4 font-light">
+                    22 · NOVIEMBRE · 2026
+                </p>
+
+                <!-- Cuenta Regresiva -->
+                <div
+                    class="mt-8 bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-skySoft/30 shadow-lg max-w-xs mx-auto">
+                    <p class="text-xs uppercase font-serif tracking-widest text-skySoft mb-3">Faltan solo</p>
+                    <div class="grid grid-cols-4 gap-2 text-center" id="countdown">
+                        <div class="flex flex-col">
+                            <span id="days" class="font-serif text-2xl font-bold text-iceBlue">00</span>
+                            <span class="text-[9px] uppercase tracking-wider text-silverCold/80">Días</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span id="hours" class="font-serif text-2xl font-bold text-iceBlue">00</span>
+                            <span class="text-[9px] uppercase tracking-wider text-silverCold/80">Hs</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span id="minutes" class="font-serif text-2xl font-bold text-iceBlue">00</span>
+                            <span class="text-[9px] uppercase tracking-wider text-silverCold/80">Min</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span id="seconds" class="font-serif text-2xl font-bold text-iceBlue">00</span>
+                            <span class="text-[9px] uppercase tracking-wider text-silverCold/80">Seg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indicador para Deslizar Hacia Abajo -->
+            <div class="relative z-10 pb-6 flex flex-col items-center cursor-pointer" onclick="scrollToNextPage()">
+                <span class="text-[10px] font-sans tracking-widest uppercase text-silverCold/80 mb-2">Desliza para ver
+                    detalles</span>
+                <div class="w-8 h-12 rounded-full border-2 border-skySoft/60 flex justify-center pt-2">
+                    <i class="fa-solid fa-chevron-down text-skySoft text-sm animate-bounce"></i>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== PÁGINA 2: DETALLES Y UBICACIÓN ==================== -->
+        <section
+            class="section-page flex flex-col justify-between items-center text-center p-6 bg-gradient-to-b from-navyDark via-midnightBlue to-navyDark relative">
+
+            <!-- Marco Decorativo Sutil -->
+            <div class="absolute inset-4 border border-skySoft/20 rounded-3xl pointer-events-none z-0"></div>
+
+            <!-- Contenido de la Página 2 -->
+            <div class="relative z-10 w-full h-full flex flex-col justify-between py-4 max-w-md mx-auto">
+
+                <!-- Encabezado Sección 2 -->
+                <div class="pt-2">
+                    <i class="fa-solid fa-spa text-skySoft text-lg mb-1"></i>
+                    <h2 class="font-serif text-2xl text-skySoft uppercase tracking-wider">Dónde & Cuándo</h2>
+                    <p class="font-script text-2xl text-silverCold">Acompáñanos en nuestro día especial</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== PÁGINA 2: DETALLES Y UBICACIÓN ==================== -->
+        <section
+            class="section-page flex flex-col justify-between items-center text-center p-6 bg-gradient-to-b from-navyDark via-midnightBlue to-navyDark relative">
+
+            <!-- Marco Decorativo Sutil -->
+            <div class="absolute inset-4 border border-skySoft/20 rounded-3xl pointer-events-none z-0"></div>
+
+            <!-- Contenido de la Página 2 -->
+            <div class="relative z-10 w-full h-full flex flex-col justify-between py-4 max-w-md mx-auto">
+
+                <!-- Encabezado Sección 2 -->
+                <div class="pt-2">
+                    <i class="fa-solid fa-leaf text-skySoft text-lg mb-1"></i>
+                    <h2 class="font-serif text-2xl text-skySoft uppercase tracking-wider">Dónde & Cuándo</h2>
+                    <p class="font-script text-2xl text-silverCold">Acompáñanos en nuestro día especial</p>
+                </div>
+
+                <!-- Tarjeta de Detalles del Evento -->
+                <div class="space-y-4 my-auto">
+
+                    <!-- Ceremonia y Recepción -->
+                    <div
+                        class="bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-skySoft/30 text-left shadow-lg">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div
+                                class="w-10 h-10 rounded-full bg-midnightBlue flex items-center justify-center border border-skySoft/40 text-skySoft">
+                                <i class="fa-solid fa-glass-cheers text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-base text-skySoft font-semibold">Terraza Villa Jardin</h3>
+                                <p class="text-xs text-silverCold/90">Recepción y Ceremonia</p>
+                            </div>
+                        </div>
+                        <div class="text-xs text-iceBlue/90 space-y-1 ml-13 pl-1 border-l-2 border-skySoft/30">
+                            <p><i class="fa-regular fa-clock text-skySoft mr-2"></i><strong>Hora:</strong> 6:00 PM</p>
+                            <p><i class="fa-solid fa-location-dot text-skySoft mr-2"></i><strong>Dirección:</strong> C.
+                                Profa. Candelaria Díaz de Bustamante, Independencia II, 32670 Juárez, Chih.</p>
+                        </div>
+
+                        <!-- Botón Abrir Mapa -->
+                        <button onclick="openMap()"
+                            class="mt-3 w-full py-2 px-4 bg-midnightBlue hover:bg-sky-900 text-iceBlue text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition duration-300 border border-skySoft/40">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            Ver Ubicación en Google Maps
+                        </button>
+                    </div>
+
+                    <!-- Código de Vestimenta -->
+                    <div
+                        class="bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-skySoft/30 text-center shadow-lg">
+                        <h4 class="font-serif text-sm text-skySoft tracking-wider uppercase mb-1">
+                            <i class="fa-solid fa-user-tie mr-1"></i> Código de Vestimenta
+                        </h4>
+                        <p class="text-xs text-iceBlue font-medium">Formal Formal </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Zona de Confirmación (WhatsApp) -->
+                <div class="pb-2 w-full">
+                    <p class="text-xs text-silverCold mb-2 font-light">Agradecemos confirmar tu asistencia antes del 15
+                        de Noviembre</p>
+
+                    <a href="https://api.whatsapp.com/send?phone=1234567890&text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Ram%C3%B3n%20y%20Leslie%20%F0%9F%AA%B5"
+                        target="_blank"
+                        class="w-full py-3.5 px-6 bg-gradient-to-r from-skySoft via-iceBlue to-skySoft text-navyDark font-serif font-bold text-sm tracking-wider uppercase rounded-full shadow-xl pulse-silver flex items-center justify-center gap-2 border border-white">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        Confirmar Asistencia
+                    </a>
+
+                    <p class="text-[10px] text-silverCold/50 mt-3 uppercase tracking-widest font-serif">Ramón & Leslie
+                        2026</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Script para Animación de Hojas Azules y Funcionalidad -->
+    <script>
+        // --- 1. Desplazamiento Suave entre Páginas ---
+        function scrollToNextPage() {
+            const container = document.getElementById('main-container');
+            container.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        function openMap() {
+            window.open('https://maps.app.goo.gl/psnPWXEfAd4nA6z58', '_blank');
+        }
+
+        // --- 2. Contador Regresivo a Noviembre 22, 2026 ---
+        const targetDate = new Date('November 22, 2026 17:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                document.getElementById('countdown').innerHTML = "<span class='col-span-4 text-skySoft font-serif'>¡El gran día ha llegado!</span>";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- 3. Animación de Pétalos de Rosa Azules Cayendo (HTML5 Canvas) ---
+        const canvas = document.getElementById('leaves-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Colores en tonos azules y plata para los pétalos de rosa
+        const petalColors = ['#B9E0FF', '#7400B8', '#1F51FF', '#48CAE4', '#0077B6', '#E2F1FF', '#D4E6F1'];
+
+        class RosePetal {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = -20 - Math.random() * 50;
+                this.size = 10 + Math.random() * 14;
+                this.speedY = 0.8 + Math.random() * 1.5;
+                this.speedX = Math.sin(Math.random() * Math.PI) * 0.8;
+                this.angle = Math.random() * 360;
+                this.spin = (Math.random() - 0.5) * 2;
+                this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                this.opacity = 0.5 + Math.random() * 0.45;
+                this.oscillationSpeed = 0.015 + Math.random() * 0.025;
+                this.step = Math.random() * 100;
+                // Factor de curvatura del pétalo para simular profundidad 3D
+                this.curveFactor = 0.6 + Math.random() * 0.4;
+            }
+
+            update() {
+                this.step += this.oscillationSpeed;
+                this.y += this.speedY;
+                this.x += Math.sin(this.step) * 1.6 + this.speedX;
+                this.angle += this.spin;
+
+                if (this.y > height + 20) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.angle * Math.PI) / 180);
+                ctx.scale(Math.cos(this.step * 0.8), 1); // Simula rotación tridimensional del pétalo
+                ctx.globalAlpha = this.opacity;
+
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+
+                // Dibujar silueta suave de pétalo de rosa
+                const r = this.size;
+                ctx.moveTo(0, -r * 0.5);
+                ctx.bezierCurveTo(r * 0.9, -r * 1.1, r * 1.2, r * 0.3, 0, r);
+                ctx.bezierCurveTo(-r * 1.2, r * 0.3, -r * 0.9, -r * 1.1, 0, -r * 0.5);
+                ctx.fill();
+
+                // Sombra sutil interna del pétalo para realismo
+                ctx.beginPath();
+                ctx.fillStyle = 'rgba(11, 25, 44, 0.25)';
+                ctx.bezierCurveTo(r * 0.4, -r * 0.5, r * 0.5, r * 0.2, 0, r);
+                ctx.bezierCurveTo(-r * 0.5, r * 0.2, -r * 0.4, -r * 0.5, 0, -r * 0.5);
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        const petalCount = 30;
+        const petals = [];
+        for (let i = 0; i < petalCount; i++) {
+            petals.push(new RosePetal());
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, width, height);
+            petals.forEach(petal => {
+                petal.update();
+                petal.draw();
+            });
+            requestAnimationFrame(animatePetals);
+        }
+
+        window.onload = function () {
+            animatePetals();
+        };
+    </script>
+</body>
+
+</html>
